@@ -1,0 +1,32 @@
+###############################################
+FileSystem Connector Module
+###############################################
+
+Maintainer Contact
+-----------------------------------------------
+Marcus Nyeholt
+
+<marcus (at) silverstripe (dot) com (dot) au>
+
+Requirements
+-----------------------------------------------
+SilverStripe 2.4.x
+External Content module
+
+Documentation
+-----------------------------------------------
+
+See http://doc.silverstripe.org/doku.php?id=module:external-content-newconnector
+which is the source of this module
+
+* Extract the archive to your SilverStripe root folder. Run /dev/build. 
+* Navigate to the "External Content" and create a new FileSystemContentSource
+connector.
+* Add in the FolderPath of a location beneath base_url, relative to the base_url
+value
+
+
+Quick Usage Overview
+-----------------------------------------------
+
+See the external-content README
