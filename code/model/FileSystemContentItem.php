@@ -65,7 +65,7 @@ class FileSystemContentItem extends ExternalContentItem
 	
 	public function getType()
 	{
-		return $this->numChildren() ? 'folder' : 'file';
+		return is_dir($this->FilePath) ? 'folder' : 'file';
 	}
 
 	public function streamContent()

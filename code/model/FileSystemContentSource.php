@@ -62,6 +62,13 @@ class FileSystemContentSource extends ExternalContentSource
 		return self::$base_path . ($trimmedPath ? '/' . $trimmedPath : '');
 	}
 
+	/**
+	 * Get a filesystem object
+	 *
+	 * @param String $id
+	 *			The encoded ID of the item
+	 * @return FileSystemContentItem
+	 */
 	public function getObject($id)
 	{
 		if (empty($this->FolderPath)) {
@@ -105,8 +112,14 @@ class FileSystemContentSource extends ExternalContentSource
 	{
 		return new FileSystemContentImporter();
 	}
-	
-}
 
+	public function getType()
+	{
+		$root = $this->getRoot();
+		if ($root) {
+			return $root->getType();
+		}
+	}
+}
 
 ?>

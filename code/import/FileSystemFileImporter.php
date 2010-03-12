@@ -49,7 +49,13 @@ class FileSystemFileImporter implements ExternalContentTransformer
 		);
 		$upload = new FileLoader();
 		$folderPath = trim(substr($folderPath, strpos($folderPath, '/')), '/');
-		$upload->loadIntoFile($details, $newFile, $folderPath);
+
+		try {
+			$upload->loadIntoFile($details, $newFile, $folderPath);
+		} catch (ValidationException $ve) {
+			// ignore for now, there should really be a proper error reporting mechanism though...
+			SS_Log::log("File import failed: ".$ve->getMessage(), SS_Log::WARN);
+		}
 
 		return new TransformResult($newFile, null);
 	}
