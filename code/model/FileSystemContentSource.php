@@ -51,6 +51,12 @@ class FileSystemContentSource extends ExternalContentSource
 		return $fields;
 	}
 	
+	public function onBeforeWrite() {
+		parent::onBeforeWrite();
+		
+		$this->FolderPath = str_replace('\\', '/', $this->FolderPath);
+	}
+	
 	/**
 	 * Get the file path including its base_path
 	 * 
@@ -77,7 +83,9 @@ class FileSystemContentSource extends ExternalContentSource
 		$remoteId = $this->decodeId($id);
 		// TODO: Add safety things in here to make sure that our filepath isn't
 		// going to list out things like /important/secrets!
-		$filePath = realpath($this->getFilePath().$remoteId);
+		// windows realpath returns with \ path characters
+		$filePath = str_replace('\\', '/', realpath($this->getFilePath().$remoteId));
+		
 		// make sure it's still in the filepath
 		if (strpos($filePath, $this->getFilePath()) !== 0) {
 			return null;

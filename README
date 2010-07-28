@@ -19,7 +19,7 @@ Documentation
 See http://doc.silverstripe.org/doku.php?id=module:external-content-newconnector
 which is the source of this module
 
-* Extract the archive to your SilverStripe root folder. Run /dev/build. 
+* Extract the archive to your SilverStripe root folder in a folder called "filesystem-connector". Run /dev/build. 
 * Navigate to the "External Content" and create a new FileSystemContentSource
 connector.
 * Add in the FolderPath of a location beneath base_url, relative to the base_url
