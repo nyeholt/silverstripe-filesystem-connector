@@ -64,8 +64,14 @@ class FileSystemContentSource extends ExternalContentSource
 	 */
 	public function getFilePath()
 	{
-		$trimmedPath = trim($this->FolderPath, '/');
-		return self::$base_path . ($trimmedPath ? '/' . $trimmedPath : '');
+		$trimmedPath = rtrim($this->FolderPath, '/');
+		
+		$prefix = strlen(self::$base_path) ? rtrim(self::$base_path, '/') : ($trimmedPath{0} == '/' ? '' : Director::baseFolder());
+		$prefix = strlen($prefix) ? $prefix . '/' : $prefix;
+		
+		$path = realpath($prefix . $trimmedPath);
+
+		return str_replace('\\', '/', $path);
 	}
 
 	/**
@@ -77,9 +83,7 @@ class FileSystemContentSource extends ExternalContentSource
 	 */
 	public function getObject($id)
 	{
-		if (empty($this->FolderPath)) {
-			return null;
-		}
+		
 		$remoteId = $this->decodeId($id);
 		// TODO: Add safety things in here to make sure that our filepath isn't
 		// going to list out things like /important/secrets!
@@ -88,6 +92,7 @@ class FileSystemContentSource extends ExternalContentSource
 		
 		// make sure it's still in the filepath
 		if (strpos($filePath, $this->getFilePath()) !== 0) {
+			singleton('ECUtils')->log("$filePath is not part of ".$this->getFilePath());
 			return null;
 		}
 
