@@ -84,5 +84,3 @@ class FileSystemContentItem extends ExternalContentItem
 	    exit("Failed streaming content");
 	}
 }
-
-?>
